@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "@slack/bolt": "^3.19.0",
+    "dotenv": "^16.4.5",
+    "openai": "^4.52.7"
+  },
+  "name": "ask-adios",
+  "version": "1.0.0",
+  "description": "This is a slack chatbot powered by mindsdb ai",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ayush Sharma",
+  "license": "MIT"
+}
