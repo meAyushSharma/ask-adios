@@ -1,6 +1,7 @@
 require("dotenv").config();
 const { App } = require("@slack/bolt");
 const OpenAI = require("openai");
+const fs = require('fs');
 
 const AI_MODEL = "gemma-7b";
 const AI_API_KEY = process.env.AI_API_KEY;
@@ -17,15 +18,7 @@ const AI_CLIENT = new OpenAI({
   baseURL: process.env.BASE_URL,
 });
 
-// app.message(async ({ message, say }) => {
-//   console.log("Received message:", message);
-
-//   // Respond to the message
-//   await say(`You said: ${message.text}`);
-// });
-
-
-console.log(process.env.TEMPLATE);
+const promptTemplate = fs.readFileSync('./prompt.md', 'utf-8');
 
 const getPostContent = async (PROMPT) => {
   const chatCompletion = await AI_CLIENT.chat.completions.create({
@@ -38,14 +31,19 @@ const getPostContent = async (PROMPT) => {
   );
   return content;
 };
-//   /^(hello adios||hey adios||hi adios)\s+.*$/
-app.message(/adios||Adios/, async ({ message, say }) => {
+
+// ------------------------messages to reply to, here !--------------------------------//
+
+app.message(/adios||Adios/, async ({ event, message, say }) => {
   try {
-    const contentToShow = await getPostContent(`${process.env.TEMPLATE+message.text}`).catch((e) => {
+    const contentToShow = await getPostContent(`${(promptTemplate || process.env.TEMPLATE)+"{"+message.text+"}"}`).catch((e) => {
       console.log(`the error in getting content from contentToShow is: ${e}`);
     });
     const contentToShowActually = contentToShow?.toString().trim();
-    // await say(`${contentToShowActually}`);
+    if(contentToShowActually.length == ""){
+      await say("Thank you for talking to Adios!")
+      return;
+    }
     await say({
         text:contentToShowActually,
             "blocks": [
@@ -63,36 +61,6 @@ app.message(/adios||Adios/, async ({ message, say }) => {
     console.log("err");
     console.error(error);
   }
-});
-
-app.message("hola", async ({ message, say }) => {
-  // say() sends a message to the channel where the event was triggered
-  await say({
-    blocks: [
-      {
-        type: "section",
-        text: {
-          type: "mrkdwn",
-          text: `Hey there <@${message.user}>!`,
-        },
-        accessory: {
-          type: "button",
-          text: {
-            type: "plain_text",
-            text: "Click Me",
-          },
-          action_id: "button_click",
-        },
-      },
-    ],
-    text: `Hey there <@${message.user}>!`,
-  });
-});
-
-app.action("button_click", async ({ body, ack, say }) => {
-  // Acknowledge the action
-  await ack();
-  await say(`<@${body.user.id}> clicked the button`);
 });
 
 // This will match any message that contains 👋
