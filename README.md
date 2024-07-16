@@ -3,6 +3,8 @@
 <img src="./asset/Screenshot 2024-07-15 161916.png" style="text-align: center;" />
 
 > Adios: Hey, I'm Adios, glad to make your acquaintance. Ask me about anime, dogs, anything you like... also I use arch btw ✌️peace.
+#### Demo:       
+https://github.com/user-attachments/assets/479ac597-1e1d-4a01-84f4-074a70710f56           
       
 ### Installation :   
 --- 
