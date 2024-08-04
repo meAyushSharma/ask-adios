@@ -1,6 +1,6 @@
-<h2 style="text-align: center;">Adios Slack-Chatbot : <img height="32px" width="32px" src="./asset/slack_bot_image1-resized.jpg" /> </h2>      
+<h2 align="center">Adios Slack-Chatbot : <img height="32px" width="32px" src="./asset/slack_bot_image1-resized.jpg" /> </h2>      
 
-<img src="./asset/Screenshot 2024-07-15 161916.png" style="text-align: center;" />
+<img src="./asset/Screenshot 2024-07-15 161916.png" align="center" />
 
 > Adios: Hey, I'm Adios, glad to make your acquaintance. Ask me about anime, dogs, anything you like... also I use arch btw ✌️peace.
 #### Demo:       
